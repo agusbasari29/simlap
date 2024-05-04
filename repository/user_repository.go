@@ -9,6 +9,7 @@ type UserRepository interface {
 	CreateUser(user entity.Users) (entity.Users, error)
 	UpdateUser(user entity.Users) (entity.Users, error)
 	GetUser(user entity.Users) (entity.Users, error)
+	GetUserByUsername(username string) interface{}
 	GetUsers(users []entity.Users) ([]entity.Users, error)
 	DeleteUser(user entity.Users) bool
 }
@@ -43,6 +44,15 @@ func (r *userRepository) GetUser(user entity.Users) (entity.Users, error) {
 		return user, err
 	}
 	return user, nil
+}
+
+func (r *userRepository) GetUserByUsername(username string) interface{} {
+	user := entity.Users{}
+	result := r.db.Where("username = ?", username).Take(&user)
+	if result.Error == nil {
+		return result
+	}
+	return nil
 }
 
 func (r *userRepository) GetUsers() ([]entity.Users, error) {

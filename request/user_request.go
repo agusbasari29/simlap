@@ -8,11 +8,15 @@ type UserLoginRequest struct {
 }
 
 type UserRegisterRequest struct {
-	Username string
-	Password string
-	Fullname string
-	Phone    string
-	Email    string
-	Address  string
+	Username string	`json:"username"`
+	Password string	`json:"password"`
+	Fullname string `json:"fullname"`
+	Phone    string `json:"phone"`
+	Email    string `json:"email"`
+	Address  string `json:"address"`
 	Role     entity.UserRole
+}
+
+type UserGetRequest struct{
+	ID uint64 `json:"id"`
 }
